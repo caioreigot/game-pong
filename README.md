@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://caioreigot.github.io/game-pong" rel="nofollow">
-  <img src="https://user-images.githubusercontent.com/62410044/91645147-17a51c00-ea19-11ea-9094-14f52a24d05a.gif">
+  <img src="https://user-images.githubusercontent.com/62410044/91646531-76bd5d80-ea26-11ea-9013-375b738046c5.gif">
   </a>
 </div>
 
