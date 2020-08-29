@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="icon" type="imagem/png" href="./images/icon.png"/>
+        <title>Pong</title>
+
+        <!-- Script to load the background image -->
+        <script src="./sprite.js"></script>
+
+        <style>
+            body {
+                background-color: #0f0f0f;
+            }
+
+            /* Centering the canvas */
+            canvas {
+                position: absolute;
+                top: 0px;
+                bottom: 0px;
+                left: 0px;
+                right: 0px;
+                margin: auto;
+                background-color: black;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <!-- If the user's browser does not support the canvas, the message will appear -->
+        <canvas height="600" width="600" id="mycanvas">Your browser does not support canvas</canvas>
+
+        <!-- Game -->
+        <script src="./pong.js"></script>
+
+    </body>
+
+</html>
