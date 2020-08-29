@@ -9,4 +9,5 @@ function Sprite(x, y, width, height) {
     }
 }
 
-var bg = new Sprite(0, 0, 600, 600);
+const bg = new Sprite(0, 0, 600, 600);
+const spriteBall = new Sprite(630, 22, 34, 32);

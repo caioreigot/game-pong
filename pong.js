@@ -6,7 +6,7 @@ let newGame = false, player1win = 0, player2win = 0;
 
 // Loading background image
 img = new Image();
-img.src = "./images/background.png";
+img.src = "./images/sheet.png";
 
 const keys = {};
 
@@ -15,12 +15,16 @@ const ball = {
     x: canvas.width / 2 - 15, // 15 == half its width
     y: canvas.height / 2 - 15, // 15 == half its height
 
-    height: 30,
-    width: 30,
+    height: spriteBall.height,
+    width: spriteBall.width,
     dirx: -1, // "x" going left
     diry: 1,
     mod: 0, // Speed modifier (when you hit the blocks, it will increase)
-    speed: 4
+    speed: 4,
+
+    draw() {
+        spriteBall.draw(this.x, this.y);
+    }
 };
 
 const leftBar = {
@@ -127,11 +131,11 @@ function newgame(winner) {
 };
 
 function draw() {
-
+    
     bg.draw(0, 0);
 
-    moveBlock()
-    moveBall()
+    moveBlock();
+    moveBall();
 
     if (newGame == true) {
         ctx.fillStyle = '#fff';
@@ -147,7 +151,8 @@ function draw() {
 
     ctx.fillRect(leftBar.x, leftBar.y, leftBar.width, leftBar.height);
     ctx.fillRect(rightBar.x, rightBar.y, rightBar.width, rightBar.height);
-    ctx.fillRect(ball.x, ball.y, ball.width, ball.height);
+
+    ball.draw();
 
     // Score
     ctx.font = '40px Arial';
