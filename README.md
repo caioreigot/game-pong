@@ -8,7 +8,7 @@
 Copy of the Pong game made in javascript for study purposes :D
 
 ## Controls
-W, S = Controls the left bar
+W, S = Controls the left bar <br>
 Up Arrow, Down Arrow = Controls the right bar
 
 ## Link to play
