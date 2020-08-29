@@ -7,7 +7,7 @@
 # Pong
 Copy of the Pong game made in javascript for study purposes :D
 
-# Controls
+## Controls
 W, S = Controls the left bar
 Up Arrow, Down Arrow = Controls the right bar
 
