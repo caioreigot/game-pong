@@ -159,7 +159,7 @@ function draw() {
     ctx.fillText(leftBar.score, 220, 70);
     ctx.fillText(rightBar.score, canvas.width - 240, 70);
 
-    window.requestAnimationFrame(draw) // loop
+    window.requestAnimationFrame(draw); // loop
 };
 
 // setInterval(draw, 10);
