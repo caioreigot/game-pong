@@ -81,11 +81,11 @@ function moveBall() {
     if (timeToStart == 0) {
         if (madePoint == false) {
             if (ball.y + ball.height >= leftBar.y && ball.y <= leftBar.y + leftBar.height && ball.x <= leftBar.x + leftBar.width) {
-                ball.dirx = 1;
+                ball.dirx = Math.random() * 2;
                 ball.diry = Math.random() < 0.5 ? 1 : -1;
                 ball.mod += 0.2;
             } else if (ball.y + ball.height >= rightBar.y && ball.y <= rightBar.y + rightBar.height && ball.x + ball.width >= rightBar.x) {
-                ball.dirx = -1;
+                ball.dirx = Math.random() * -2;
                 ball.diry = Math.random() < 0.5 ? 1 : -1;
                 ball.mod += 0.2;
             }
