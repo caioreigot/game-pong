@@ -2,7 +2,7 @@ const canvas = document.getElementById('mycanvas');
 const ctx = canvas.getContext('2d');
 
 // Game variables
-let newGame = false, player1win = 0, player2win = 0;
+let madePoint = false, timeToStart = 60, player1win = 0, player2win = 0;
 
 // Loading background image
 img = new Image();
@@ -17,102 +17,104 @@ const ball = {
 
     height: spriteBall.height,
     width: spriteBall.width,
-    dirx: -1, // "x" going left
-    diry: 1,
+    dirx: Math.random() < 0.5 ? 1 : -1, // "x" going left
+    diry: Math.random() < 0.5 ? 1 : -1,
     mod: 0, // Speed modifier (when you hit the blocks, it will increase)
     speed: 4,
 
     draw() {
         spriteBall.draw(this.x, this.y);
     }
-};
+}
 
 const leftBar = {
     x: 10,
     y: canvas.height / 2 - 60,
     height: 120,
-    width: 30,
+    width: 20,
     score: 0,
-    speed: 15
-};
+    speed: 14
+}
 
 const rightBar = {
-    x: 560,
+    x: 570,
     y: canvas.height / 2 - 60,
     height: 120,
-    width: 30,
+    width: 20,
     score: 0,
-    speed: 15
-};
+    speed: 8
+}
 
 // Identify if the user pressed any key
 document.addEventListener('keydown', (e) => {
-    keys[e.keyCode] = true;
-    // alert(e.keyCode);
-});
+    keys[e.code] = true;
+})
 
 document.addEventListener("keyup", (e) => {
-    delete keys[e.keyCode];
-});
+    delete keys[e.code];
+})
 
 // Function responsible for moving the bars
-function moveBlock() {
-    // key code W = 87
-    // key code S = 83
-
+function moveBar() {
     // leftBar
-    if (87 in keys && leftBar.y > 0 + 20) {
+    if ("KeyW" in keys && leftBar.y > 0 + 20) {
         leftBar.y -= leftBar.speed;
     }
 
-    else if (83 in keys && leftBar.y + leftBar.height < canvas.height - 20) {
+    else if ("KeyS" in keys && leftBar.y + leftBar.height < canvas.height - 20) {
         leftBar.y += leftBar.speed;
     }
+}
 
-    // rightBar
-    if (38 in keys && rightBar.y > 0 + 20) {
-        rightBar.y -= rightBar.speed;
-    }
-
-    else if (40 in keys && rightBar.y + rightBar.height < canvas.height - 20) {
+function IArightBar() {
+    if (rightBar.y + rightBar.height / 2 < ball.y && rightBar.y + rightBar.height + 18 < canvas.height) {
         rightBar.y += rightBar.speed;
     }
-};
+    else if (rightBar.y > ball.y && rightBar.y > 18) {
+        rightBar.y -= rightBar.speed;
+    }
+}
 
 // Function responsible for moving the ball
 function moveBall() {
 
-    if (newGame == false) {
-        if (ball.y + ball.height >= leftBar.y && ball.y <= leftBar.y + leftBar.height && ball.x <= leftBar.x + leftBar.width) {
-            ball.dirx = 1;
-            ball.mod += 0.1;
-        } else if (ball.y + ball.height >= rightBar.y && ball.y <= rightBar.y + rightBar.height && ball.x + ball.width >= rightBar.x) {
-            ball.dirx = -1;
-            ball.mod += 0.1;
-        }
+    if (timeToStart == 0) {
+        if (madePoint == false) {
+            if (ball.y + ball.height >= leftBar.y && ball.y <= leftBar.y + leftBar.height && ball.x <= leftBar.x + leftBar.width) {
+                ball.dirx = 1;
+                ball.diry = Math.random() < 0.5 ? 1 : -1;
+                ball.mod += 0.2;
+            } else if (ball.y + ball.height >= rightBar.y && ball.y <= rightBar.y + rightBar.height && ball.x + ball.width >= rightBar.x) {
+                ball.dirx = -1;
+                ball.diry = Math.random() < 0.5 ? 1 : -1;
+                ball.mod += 0.2;
+            }
+        
+            if (ball.y <= 20) {
+                ball.diry = 1;
+            } else if (ball.y + ball.height >= canvas.height - 20) {
+                ball.diry = -1;
+            }
     
-        if (ball.y <= 20) {
-            ball.diry = 1;
-        } else if (ball.y + ball.height >= canvas.height - 20) {
-            ball.diry = -1;
+            ball.x += (ball.speed + ball.mod) * ball.dirx;
+            ball.y += (ball.speed + ball.mod) * ball.diry;
+        
+            // If the player failed to hit the ball
+            if (ball.x < leftBar.x + leftBar.width - 15) {
+                pointOf('player 2');
+                player2win = 1;
+            } else if (ball.x + ball.width > rightBar.x + 15) {
+                pointOf('player 1');
+                player1win = 1;
+            }    
         }
-
-        ball.x += (ball.speed + ball.mod) * ball.dirx;
-        ball.y += (ball.speed + ball.mod) * ball.diry;
-    
-        // If the player failed to hit the ball
-        if (ball.x < leftBar.x + leftBar.width - 15) {
-            newgame('player 2');
-            player2win = 1;
-        } else if (ball.x + ball.width > rightBar.x + 15) {
-            newgame('player 1');
-            player1win = 1;
-        }    
+    } else {
+        timeToStart--;
     }
 
-};
+}
 
-function newgame(winner) {
+function pointOf(winner) {
     if (winner == 'player 1') {
         leftBar.score++;
     } else {
@@ -127,23 +129,24 @@ function newgame(winner) {
     ball.x = canvas.width / 2 - ball.width / 2;
     ball.mod = 0;
 
-    newGame = true;
-};
+    madePoint = true;
+}
 
 function draw() {
     
     bg.draw(0, 0);
 
-    moveBlock();
+    IArightBar();
+    moveBar();
     moveBall();
 
-    if (newGame == true) {
+    if (madePoint == true) {
         ctx.fillStyle = '#fff';
         ctx.fillRect(canvas.width / 2 - 125, canvas.height / 2 - 148, 250, 70);
 
         ctx.fillStyle = '#482883';
         ctx.fillText(player1win == 1 ? 'Player 1++' : 'Player 2++', canvas.width / 2 - 95, canvas.height / 2 - 100)
-        setTimeout(() => {newGame = false}, 1000);
+        setTimeout(() => {madePoint = false}, 1000);
     }
 
     // Ball color, text and bars
@@ -159,8 +162,23 @@ function draw() {
     ctx.fillText(leftBar.score, 220, 70);
     ctx.fillText(rightBar.score, canvas.width - 240, 70);
 
+    document.querySelector('#difficultyValue').textContent = rightBar.speed;
     window.requestAnimationFrame(draw); // loop
-};
+}
+
+function decreaseDifficulty() {
+    if (rightBar.speed - 1 >= 1)
+        rightBar.speed--;
+}
+
+function increaseDifficulty() {
+    if (rightBar.speed + 1 <= 18)
+        rightBar.speed++;
+}
+
+function defaultDifficulty() {
+    rightBar.speed = 8;
+}
 
 // setInterval(draw, 10);
 draw();

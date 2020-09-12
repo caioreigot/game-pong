@@ -26,6 +26,43 @@
                 right: 0px;
                 margin: auto;
             }
+
+            .margin {
+                margin: 5px;
+            }
+
+            #IAmenu {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .difficultyButtons {
+                box-shadow:inset 0px 1px 0px 0px #7a8eb9;
+                background:linear-gradient(to bottom, #637aad 5%, #5972a7 100%);
+                background-color:#637aad;
+                border:1px solid #314179;
+                display:inline-block;
+                cursor:pointer;
+                color:#ffffff;
+                font-family:Arial;
+                font-size:13px;
+                font-weight:bold;
+                padding:6px 12px;
+                text-decoration: none;
+                outline-style: none;
+            }
+            
+            .difficultyButtons:hover {
+                background:linear-gradient(to bottom, #5972a7 5%, #637aad 100%);
+                background-color:#5972a7;
+            }
+            .difficultyButtons:active {
+                position:relative;
+                top:1px;
+            }
+            
         </style>
 
     </head>
@@ -33,6 +70,17 @@
     <body>
         <!-- If the user's browser does not support the canvas, the message will appear -->
         <canvas height="600" width="600" id="mycanvas">Your browser does not support canvas</canvas>
+
+        <div id="IAmenu">
+            <div class="margin">
+                <button class="difficultyButtons" onclick="defaultDifficulty()">Default difficulty</button>
+            </div>
+            <div class="margin">
+              <button class="difficultyButtons" onclick="decreaseDifficulty()">-</button>
+              <button class="difficultyButtons" onclick="increaseDifficulty()">+</button>
+              <button id="difficultyValue" class="difficultyButtons"></button>
+            </div>
+          </div>
 
         <!-- Game -->
         <script src="./pong.js"></script>
