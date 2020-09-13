@@ -10,4 +10,6 @@ function Sprite(x, y, width, height) {
 }
 
 const bg = new Sprite(0, 0, 600, 600);
+
 const spriteBall = new Sprite(630, 22, 34, 32);
+const spriteSpeedBoost = new Sprite(632, 65, 30, 30);
