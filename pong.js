@@ -126,12 +126,15 @@ function moveBar() {
 }
 
 function IArightBar() {
-    if (rightBar.y + rightBar.height / 2 < ball.y && rightBar.y + rightBar.height + 18 < canvas.height) {
+    if (rightBar.y + rightBar.height / 2 < ball.y) {
         rightBar.y += rightBar.speed;
     }
-    else if (rightBar.y > ball.y && rightBar.y > 18) {
+    if (rightBar.y + rightBar.height + 20 > canvas.height) rightBar.y = canvas.height - rightBar.height - 20;
+
+    else if (rightBar.y > ball.y) {
         rightBar.y -= rightBar.speed;
     }
+    if  (rightBar.y < 20) rightBar.y = 20;
 }
 
 // Function responsible for moving the ball
