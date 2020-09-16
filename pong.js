@@ -115,13 +115,15 @@ document.addEventListener("keyup", (e) => {
 // Function responsible for moving the bars
 function moveBar() {
     // leftBar
-    if ("KeyW" in keys && leftBar.y > 0 + 25) {
+    if ("KeyW" in keys) {
         leftBar.y -= (leftBar.speed + leftBar.speedBonus);
     }
+    if (leftBar.y < 20) leftBar.y = 20;
 
-    else if ("KeyS" in keys && leftBar.y + leftBar.height < canvas.height - 20) {
+    else if ("KeyS" in keys) {
         leftBar.y += (leftBar.speed + leftBar.speedBonus);
     }
+    if  (leftBar.y + leftBar.height > canvas.height - 20) leftBar.y = canvas.height - leftBar.height - 20;
 }
 
 function IArightBar() {
