@@ -89,7 +89,7 @@ const speedBoost = {
                 this.insertTime = this.maxInsertTime;
 
                 if (ball.dirx > 0)
-                    leftBar.speedBonus = 5;
+                    leftBar.speedBonus = 4;
             }
         }
     },
