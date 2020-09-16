@@ -112,9 +112,8 @@ document.addEventListener("keyup", (e) => {
     delete keys[e.code];
 })
 
-// Function responsible for moving the bars
+// Function responsible for moving the left bar
 function moveBar() {
-    // leftBar
     if ("KeyW" in keys) {
         leftBar.y -= (leftBar.speed + leftBar.speedBonus);
     }
